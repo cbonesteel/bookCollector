@@ -7,6 +7,11 @@ data = pandas.read_csv('books.csv', names=colNames)
 
 isbns = data.isbn.tolist()
 
+bookID = 5
+
+books = open('books.txt', 'w')
+inventory = open('inventory.txt', 'w')
+
 for k in isbns:
     url = "https://www.googleapis.com/books/v1/volumes?q={isbn}".format(isbn=k)
     print(url)
@@ -14,11 +19,6 @@ for k in isbns:
     response = requests.get(url)
 
     dictionary = response.json()
-
-    bookID = 5
-
-    books = open('books.txt', 'w')
-    inventory = open('inventory.txt', 'w')
 
     try:
         for i in dictionary.get("items"):
@@ -48,10 +48,6 @@ for k in isbns:
                 cover = i.get("volumeInfo").get("imageLinks").get("thumbnail")
                 description = i.get("volumeInfo").get("description")
 
-                # Prints standard book information to books text file
-                print('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s' %
-                    (ISBN, cat, authors, title, edition, publisher, date[0:4], rating, cover, description), file=books)
-
                 # Gets inventory information for a book (i.e. prices, quantity in stock, etc.)
                 quantity = randrange(50)
 
@@ -72,6 +68,11 @@ for k in isbns:
 
                 # Prints inventory information to inventory text file
                 print('%s\t%s\t%s\t%s\t%s\t%s' % (bookID, quantity, "2", buyPrice, sellPrice, available), file=inventory)
+
+                # Prints standard book information to books text file
+                print('%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s' %
+                      (ISBN, cat, authors, title, edition, publisher, date[0:4], rating, cover, description),
+                      file=books)
 
                 # increments bookID for inventory information foreign key
                 bookID = bookID + 1
