@@ -11,11 +11,11 @@ code still exists and can be easily switched to if needed.
 ## File Explanations
 
 * app.py - The original python script that still uses the text file output
-method. Currently used for some testing but will likely be the final
-version of the script.
+method. Only being used to test parse and error functionality.
 
 * bookCollector.py - The updated script that uses the databaseConnector
-to query our database. Currently being used for testing database insertion.
+to query our database. The final script that inserts all parsed book
+information into the database.
 
 * csvReader.py - A stray file I used for learning how to use csv files :)
 
