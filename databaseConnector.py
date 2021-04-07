@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import errorcode
-from flask import session
 
 CURSOR = 0
 
